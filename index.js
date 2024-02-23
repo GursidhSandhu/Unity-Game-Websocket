@@ -1,6 +1,10 @@
-import { WebSocketServer } from 'ws';
+const http = require('http');
+const WebSocket = require('ws');
 
-const wss = new WebSocketServer({ port: 8880 });
+const server = http.createServer();
+const wss = new WebSocket.Server({ server });
+
+const port = process.env.PORT || 8080;
 
 wss.on('connection', function connection(ws) {
     console.log('A new client connected');
@@ -19,3 +23,8 @@ wss.on('connection', function connection(ws) {
         console.log('Client disconnected');
     });
 });
+
+server.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+});
+
